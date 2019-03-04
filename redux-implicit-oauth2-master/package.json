@@ -1,0 +1,68 @@
+{
+  "name": "react-implicit-oauth2",
+  "version": "1.0.0",
+  "description": "OAuth 2.0 Implicit Grant Flow with Redux and No Popup",
+  "keywords": [
+    "react",
+    "redux",
+    "implicit",
+    "oauth2",
+    "auth"
+  ],
+  "author": "Michael Kolawole <ksquare267@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/kunlemichaels/react-implicit-oauth2#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kunlemichaels/react-implicit-oauth2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kunlemichaels/react-implicit-oauth2/issues"
+  },
+  "main": "./lib/index.js",
+  "files": [
+    "dist",
+    "lib",
+    "src"
+  ],
+  "dependencies": {
+    "cuid": "^1.3.8",
+    "query-string": "^5.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-es3-member-expression-literals": "^6.8.0",
+    "babel-plugin-transform-es3-property-literals": "^6.8.0",
+    "babel-plugin-transform-object-assign": "^6.8.0",
+    "babel-preset-es2015": "^6.16.0",
+    "check-es3-syntax-cli": "^0.2.1",
+    "coveralls": "^3.0.0",
+    "cross-env": "^5.0.5",
+    "eslint": "^4.7.2",
+    "eslint-plugin-jest": "^21.2.0",
+    "jest": "^21.2.1",
+    "jest-localstorage-mock": "^2.0.1",
+    "rimraf": "^2.5.4",
+    "webpack": "^3.6.0"
+  },
+  "scripts": {
+    "clean": "rimraf lib dist",
+    "lint": "eslint src",
+    "build:lib": "babel src --out-dir lib --ignore '**/*.test.js'",
+    "build:umd": "cross-env NODE_ENV=development webpack src/index.js dist/react-implicit-oauth2.js",
+    "build:umd:min": "cross-env NODE_ENV=production webpack src/index.js dist/react-implicit-oauth2.min.js",
+    "build": "npm run build:lib && npm run build:umd && npm run build:umd:min",
+    "test": "jest --coverage",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "prepublishOnly": "npm run clean && npm run lint && npm run build && check-es3-syntax --kill --print lib/ dist/"
+  },
+  "jest": {
+    "setupFiles": [
+      "jest-localstorage-mock"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ]
+  }
+}
